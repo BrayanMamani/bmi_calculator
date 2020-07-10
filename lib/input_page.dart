@@ -123,11 +123,19 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     colour: kActiveCardColour,
+                    cardChild: InformationContent(
+                      label: 'WEIGHT',
+                      number: 50,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     colour: kActiveCardColour,
+                    cardChild: InformationContent(
+                      label: 'AGE',
+                      number: 25,
+                    ),
                   ),
                 ),
               ],
@@ -135,6 +143,53 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class InformationContent extends StatelessWidget {
+  InformationContent({@required this.label, @required this.number});
+
+  final String label;
+  final int number;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          label,
+          style: kLabelTextStyle,
+        ),
+        Text(
+          number.toString(),
+          style: kNumberTextStyle,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            FloatingActionButton(
+              backgroundColor: kInactiveCardColour,
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            FloatingActionButton(
+              backgroundColor: kInactiveCardColour,
+              child: Icon(
+                Icons.remove,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
