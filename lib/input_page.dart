@@ -169,27 +169,24 @@ class InformationContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FloatingActionButton(
-              backgroundColor: kInactiveCardColour,
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              onPressed: () {},
-            ),
+            RoundIconButton(),
             SizedBox(
               width: 10.0,
             ),
-            FloatingActionButton(
-              backgroundColor: kInactiveCardColour,
-              child: Icon(
-                Icons.remove,
-                color: Colors.white,
-              ),
-            ),
+            RoundIconButton(),
           ],
         ),
       ],
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
     );
   }
 }
