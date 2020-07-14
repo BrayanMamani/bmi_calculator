@@ -1,7 +1,7 @@
-import 'package:bmicalculator/bottom_button.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
-import 'reusable_card.dart';
+import 'package:bmicalculator/components/bottom_button.dart';
+import 'package:bmicalculator/components/reusable_card.dart';
+import 'package:bmicalculator/constants.dart';
 
 class ResultsPage extends StatelessWidget {
   @override
