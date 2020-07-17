@@ -4,6 +4,15 @@ import 'package:bmicalculator/components/reusable_card.dart';
 import 'package:bmicalculator/constants.dart';
 
 class ResultsPage extends StatelessWidget {
+  ResultsPage(
+      {@required this.interpretation,
+      @required this.bmiResult,
+      @required this.resultText});
+
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,12 +20,17 @@ class ResultsPage extends StatelessWidget {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            child: Text(
-              'Your Result',
-              style: kTitleTextStyle,
+            child: Container(
+              padding: EdgeInsets.all(15.0),
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'Your Result',
+                style: kTitleTextStyle,
+              ),
             ),
           ),
           Expanded(
@@ -24,18 +38,20 @@ class ResultsPage extends StatelessWidget {
             child: ReusableCard(
               colour: kActiveCardColour,
               cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'OVERWEIGHT',
+                    resultText.toUpperCase(),
                     style: kResultTextStyle,
                   ),
                   Text(
-                    '26.7',
+                    bmiResult,
                     style: kBMITextStyle,
                   ),
                   Text(
-                    'You have ...',
+                    interpretation,
+                    textAlign: TextAlign.center,
                     style: kBodyTextStyle,
                   ),
                 ],
@@ -47,7 +63,7 @@ class ResultsPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-          ),
+          )
         ],
       ),
     );

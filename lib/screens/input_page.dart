@@ -5,6 +5,7 @@ import 'package:bmicalculator/components/reusable_card.dart';
 import 'package:bmicalculator/components/round_icon_button.dart';
 import 'package:bmicalculator/components/bottom_button.dart';
 import 'package:bmicalculator/constants.dart';
+import 'package:bmicalculator/calculator_brain.dart';
 import 'results_page.dart';
 
 enum Gender {
@@ -30,45 +31,45 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: ReusableCard(
-                    colour: selectedGender == Gender.male
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
-                    cardChild: IconContent(
-                      icon: FontAwesomeIcons.mars,
-                      label: 'MALE',
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        selectedGender = Gender.male;
-                      });
-                    },
+              child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ReusableCard(
+                  onPressed: () {
+                    setState(() {
+                      selectedGender = Gender.male;
+                    });
+                  },
+                  colour: selectedGender == Gender.male
+                      ? kActiveCardColour
+                      : kInactiveCardColour,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.mars,
+                    label: 'MALE',
                   ),
                 ),
-                Expanded(
-                  child: ReusableCard(
-                    colour: selectedGender == Gender.female
-                        ? kActiveCardColour
-                        : kInactiveCardColour,
-                    cardChild: IconContent(
-                      icon: FontAwesomeIcons.venus,
-                      label: 'FEMALE',
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        selectedGender = Gender.female;
-                      });
-                    },
+              ),
+              Expanded(
+                child: ReusableCard(
+                  onPressed: () {
+                    setState(() {
+                      selectedGender = Gender.female;
+                    });
+                  },
+                  colour: selectedGender == Gender.female
+                      ? kActiveCardColour
+                      : kInactiveCardColour,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.venus,
+                    label: 'FEMALE',
                   ),
                 ),
-              ],
-            ),
-          ),
+              ),
+            ],
+          )),
           Expanded(
             child: ReusableCard(
               colour: kActiveCardColour,
@@ -91,7 +92,7 @@ class _InputPageState extends State<InputPage> {
                       Text(
                         'cm',
                         style: kLabelTextStyle,
-                      ),
+                      )
                     ],
                   ),
                   SliderTheme(
@@ -100,12 +101,10 @@ class _InputPageState extends State<InputPage> {
                       activeTrackColor: Colors.white,
                       thumbColor: Color(0xFFEB1555),
                       overlayColor: Color(0x29EB1555),
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 15.0,
-                      ),
-                      overlayShape: RoundSliderOverlayShape(
-                        overlayRadius: 30.0,
-                      ),
+                      thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 30.0),
                     ),
                     child: Slider(
                       value: height.toDouble(),
@@ -117,7 +116,7 @@ class _InputPageState extends State<InputPage> {
                         });
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -143,13 +142,12 @@ class _InputPageState extends State<InputPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             RoundIconButton(
-                              icon: FontAwesomeIcons.minus,
-                              onPressed: () {
-                                setState(() {
-                                  weight--;
-                                });
-                              },
-                            ),
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                }),
                             SizedBox(
                               width: 10.0,
                             ),
@@ -187,24 +185,25 @@ class _InputPageState extends State<InputPage> {
                             RoundIconButton(
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
-                                setState(() {
-                                  age--;
-                                });
+                                setState(
+                                  () {
+                                    age--;
+                                  },
+                                );
                               },
                             ),
                             SizedBox(
                               width: 10.0,
                             ),
                             RoundIconButton(
-                              icon: FontAwesomeIcons.plus,
-                              onPressed: () {
-                                setState(() {
-                                  age++;
-                                });
-                              },
-                            ),
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                })
                           ],
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -215,10 +214,17 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             titleButton: 'CALCULATE',
             onPressed: () {
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultsPage(),
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
                 ),
               );
             },
