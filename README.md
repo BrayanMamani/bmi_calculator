@@ -8,7 +8,7 @@ Flutter is Google's UI toolkit for building beautiful, natively compiled applica
 
 This repository presents a Body Mass Index Calculator. It will be a multi screen app with simple functionality but full-on custom styling.
 
-<img src="bmi-calculator.gif" width="300">
+<img src="bmi_calculator.gif" width="300">
 
 ## What you will need
 
